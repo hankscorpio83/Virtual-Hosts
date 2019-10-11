@@ -26,6 +26,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 import com.baidu.mobstat.StatService;
 import com.github.clans.fab.FloatingActionButton;
@@ -66,7 +68,7 @@ public class VhostsActivity extends AppCompatActivity {
         StatService.autoTrace(this, true, false);
         setContentView(R.layout.activity_vhosts);
         LogUtils.context = getApplicationContext();
-        final SwitchButton vpnButton = findViewById(R.id.button_start_vpn);
+        final Switch vpnButton = findViewById(R.id.button_start_vpn);
 
         final Button selectHosts = findViewById(R.id.button_select_hosts);
         final Button selectAdvanced = findViewById(R.id.button_advanced);
@@ -81,9 +83,9 @@ public class VhostsActivity extends AppCompatActivity {
         if (BootReceiver.getEnabled(this)) {
             fab_boot.setColorNormalResId(R.color.startup_on);
         }
-        vpnButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+        vpnButton.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     if (checkHostUri() == -1) {
                         showDialog();
@@ -261,16 +263,21 @@ public class VhostsActivity extends AppCompatActivity {
     }
 
     private void setButton(boolean enable) {
-        final SwitchButton vpnButton = (SwitchButton) findViewById(R.id.button_start_vpn);
+        final Switch vpnButton = (Switch) findViewById(R.id.button_start_vpn);
         final Button selectHosts = (Button) findViewById(R.id.button_select_hosts);
+        final Button selectAdvanced = (Button) findViewById(R.id.button_advanced);
         if (enable) {
             vpnButton.setChecked(false);
             selectHosts.setAlpha(1.0f);
+            selectAdvanced.setAlpha(1.0f);
             selectHosts.setClickable(true);
+            selectAdvanced.setClickable(true);
         } else {
             vpnButton.setChecked(true);
             selectHosts.setAlpha(.5f);
+            selectAdvanced.setAlpha(.5f);
             selectHosts.setClickable(false);
+            selectAdvanced.setClickable(false);
         }
     }
 
