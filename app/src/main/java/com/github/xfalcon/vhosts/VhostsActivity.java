@@ -69,10 +69,14 @@ public class VhostsActivity extends AppCompatActivity {
         final SwitchButton vpnButton = findViewById(R.id.button_start_vpn);
 
         final Button selectHosts = findViewById(R.id.button_select_hosts);
+        final Button selectAdvanced = findViewById(R.id.button_advanced);
         final FloatingActionButton fab_boot = findViewById(R.id.fab_boot);
         final FloatingActionButton fab_donation = findViewById(R.id.fab_donation);
         if (checkHostUri() == -1) {
             selectHosts.setText(getString(R.string.select_hosts));
+        }
+		if (checkHostUri() == -1) {
+            selectAdvanced.setText(getString(R.string.re_advanced));
         }
         if (BootReceiver.getEnabled(this)) {
             fab_boot.setColorNormalResId(R.color.startup_on);
@@ -110,12 +114,10 @@ public class VhostsActivity extends AppCompatActivity {
                 selectFile();
             }
         });
-        selectHosts.setOnLongClickListener(new View.OnLongClickListener() {
+        selectAdvanced.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), AdvanceActivity.class));
-
-                return false;
             }
         });
         fab_donation.setOnClickListener(new View.OnClickListener() {
